@@ -1,6 +1,9 @@
 import React from 'react'
+import { Navigate, useNavigate } from 'react-router-dom'
 
-const NewsCard = () => {
+const NewsCard = ({noOfNews=null}) => {
+    const navigate = useNavigate()
+
     const news =[
 
         {
@@ -57,7 +60,10 @@ const NewsCard = () => {
         </div>
         
         {news.map((newss)=>(
-            <div className="card border mt-2 mx-2 rounded flex text-[11px] justify-between">
+            
+            <div className="card border mt-2 mx-2 rounded flex text-[11px] justify-between"
+            onClick={()=>navigate('/newsPostPage')}
+            >
             <div className="image w-1/4 p-2 ">
                 <img src={newss.newsImage} className='rounded border' alt="ash" />
             </div>

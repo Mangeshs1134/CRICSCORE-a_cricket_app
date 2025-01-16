@@ -106,7 +106,7 @@ const Squads = () => {
     </div>
     {/* team player looping */}
     {players.map((player)=>(
-        <div className="players my-1 h-[30px] text-[12px] flex justify-between px-1">
+        <div key={player.name} className="players my-1 h-[30px] text-[12px] flex justify-between px-1">
         <div className="picture w-1/5 flex justify-center items-center ">
             <img className='rounded-2xl w-[30px] h-[30px]' src="https://bsmedia.business-standard.com/_media/bs/img/article/2022-03/15/full/1647365891-7103.jpg" alt="" />
         </div>

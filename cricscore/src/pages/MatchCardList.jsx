@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import Status from './Status'
+import Status from '../components/Status'
 import bell from './../assets/bell.svg'
 import left from './../assets/left.svg'
 import right from './../assets/right.svg'
@@ -7,16 +7,14 @@ import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-
-
-
-const MatchCard = () => {
+const MatchCardList = () => {
+    console.log('ok');
     
-    const navigate = useNavigate()
-    const noOfMatches = 3
-    const [matchId, setMatchId ] = useState(3)
-   
 
+    const navigate = useNavigate()
+
+    const noOfMatches = 3
+        const [matchId, setMatchId ] = useState(3)
     const matches = [
         {
             matchId : 1,
@@ -60,15 +58,20 @@ const MatchCard = () => {
             team2OverPlayed : 10,
             team2OversBowled : 20,
         },
-    ]
-    
-
+    ]   
   return (
-    <div className='p-2'>
+    <>
+    <div className="news bg-blue-500 w-screen px-3 text-white font-semibold p-2 ">
+            Matches
+        </div>
+        <div className='p-2'>
 
-        {matches.map((match)=> match.matchId !==matchId ? null : (
+        {matches.map((match)=> (
                 <div key={match.matchId} className=" bg-gray-200 fade-in p-2 flex flex-col card  border-2 border-gray-100 rounded-xl m-3"
-                onClick={()=>navigate('/matchLive')}
+                // onClick={()=>navigate('/matchLive')}
+                // onClick={()=>{navigate('/matchScorecard');console.log('onClick');
+                // }}
+                onClick={()=>console.log('ok')}
                 >
               <div className="header flex justify-between mx-3 w-full text-[10px] ">
                     <div className="title w-3/5 flex justify-start items-center">
@@ -111,36 +114,10 @@ const MatchCard = () => {
             </div>
         ))} 
 
-    <div className="matchToggle flex gap-4 justify-center items-center h-[20px] w-full ">
-        <div className="prev"
-           onClick={()=>{
-            if( matchId < noOfMatches+1  && 1 ){
-                setMatchId((prev)=> prev-1)    
-            } 
-            if(matchId === 1){
-                setMatchId(noOfMatches)
-            }
-        }}
-        >
-            <img src={left} className='bg-gray-600 rounded-xl w-5 p-1 border border-gray-500' alt="" />
-        </div>
-        <div className="next"
-         onClick={()=>{
-             if(matchId>0 && matchId < noOfMatches+1){
-                 setMatchId((prev)=> prev+1)    
-                } 
-                if(matchId == noOfMatches){
-                    setMatchId(1)
-                }
-            }}
-        >
-            <img src={right} className='bg-gray-600 rounded-xl w-5 p-1 border border-gray-500' alt="right" />
-        </div>
-    </div>
 
     </div>
-
+    </>
   )
 }
 
-export default MatchCard
+export default MatchCardList

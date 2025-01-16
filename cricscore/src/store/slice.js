@@ -1,7 +1,8 @@
 import {createSlice} from '@reduxjs/toolkit'
 
+// for match navbar toggle
 const initialMatchState = {
-    menu : 'info',
+    menu : 'live',
     user : null,
 }
 const menuSlice = createSlice({
@@ -20,6 +21,7 @@ const menuSlice = createSlice({
 export const {toggleMenu} = menuSlice.actions
 export default menuSlice.reducer
 
+// for scorecard toggle
 const initialTeamState = {
     team1 : 'MI',
     team2 : 'CSK',
@@ -35,3 +37,21 @@ const teamSlice = createSlice({
 })
 
 export const teamReducer = teamSlice.reducer
+
+// for home navbar toggle
+
+const initialNavState = {
+    team1 : 'MI',
+    team2 : 'CSK',
+    inning : 2  ,
+
+    winner : null
+}
+
+const navSlice = createSlice({
+    name : 'globalTeam',
+    initialState : initialNavState,
+    reducers : {},
+})
+
+export const navReducer = navSlice.reducer

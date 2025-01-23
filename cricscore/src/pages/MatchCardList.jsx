@@ -61,17 +61,16 @@ const MatchCardList = () => {
     ]   
   return (
     <>
-    <div className="news bg-blue-500 w-screen px-3 text-white font-semibold p-2 ">
+    <div className="news bg-blue-500 w-[100%] md:w-[screen/5] px-3 text-white font-semibold p-2 ">
             Matches
         </div>
         <div className='p-2'>
 
         {matches.map((match)=> (
                 <div key={match.matchId} className=" bg-gray-200 fade-in p-2 flex flex-col card  border-2 border-gray-100 rounded-xl m-3"
-                // onClick={()=>navigate('/matchLive')}
+                onClick={()=>navigate('/matchLive')}
                 // onClick={()=>{navigate('/matchScorecard');console.log('onClick');
                 // }}
-                onClick={()=>console.log('ok')}
                 >
               <div className="header flex justify-between mx-3 w-full text-[10px] ">
                     <div className="title w-3/5 flex justify-start items-center">

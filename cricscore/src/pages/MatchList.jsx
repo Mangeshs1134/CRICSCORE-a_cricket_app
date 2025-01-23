@@ -1,12 +1,11 @@
 import React from 'react'
-import { Header } from '../components'
-import MatchCardList from './MatchCardList'
+import { Header, MatchCard } from '../components'
 
 const MatchList = () => {
   return (
     <>
    <Header/>
-   <MatchCardList/>
+   <MatchCard list />
     </>
   )
 }

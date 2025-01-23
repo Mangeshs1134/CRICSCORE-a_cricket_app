@@ -1,68 +1,84 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
+import {Match} from '../Hooks/useMatchCard'
+
+
+
+
 
 const Info = () => {
+    const {allMatch, error} = Match()
+    const id = useSelector((state)=>state.globalMatchId.matchId) 
+    
   return (
     <div>
-        <div className="table text-[12px] flex p-3 w-full border-2 border-gray-200 ">
+        {allMatch.map((match)=> match.id===id?  <div>
+        <div className="table text-[12px] md:text-[16px] flex p-3 w-full border-2 border-gray-200 ">
             <div className="row flex ">
                 <div className="col w-1/2">
                     Match
                 </div>
                 <div className="col w-1/2">
-                    Ind Vs Aus
+                    {match.matchTitle}
                 </div>
             </div>
         </div>
-        <div className="table text-[12px]  flex p-3 w-full border-2 border-gray-200 ">
+        <div className="table text-[12px] md:text-[16px] flex p-3 w-full border-2 border-gray-200 ">
             <div className="row flex ">
                 <div className="col w-1/2">
                     Stadium
                 </div>
                 <div className="col w-1/2">
-                    Wankhede, Mumbai, India
+                    {match.venue}
                 </div>
             </div>
         </div>
-        <div className="table text-[12px]  flex p-3 w-full border-2 border-gray-200 ">
+        <div className="table text-[12px] md:text-[16px] flex p-3 w-full border-2 border-gray-200 ">
             <div className="row flex ">
                 <div className="col w-1/2">
                     Tournament
                 </div>
                 <div className="col w-1/2">
-                    ICC World Cup 2027
+                    {match.matchTitle}
                 </div>
             </div>
         </div>
-        <div className="table text-[12px]  flex p-3 w-full border-2 border-gray-200 ">
+        <div className="table text-[12px] md:text-[16px] flex p-3 w-full border-2 border-gray-200 ">
             <div className="row flex ">
                 <div className="col w-1/2">
                     Umpire
                 </div>
                 <div className="col w-1/2">
-                    Mangesh Gupta
+                    {match.umpire}
                 </div>
             </div>
         </div>
-        <div className="table text-[12px] flex p-3 w-full border-2 border-gray-200 ">
+        <div className="table text-[12px] md:text-[16px] flex p-3 w-full border-2 border-gray-200 ">
             <div className="row flex ">
                 <div className="col w-1/2">
                     Date
                 </div>
                 <div className="col w-1/2">
-                    19 Nov 2027
+                    {match.date}
                 </div>
             </div>
         </div>
-        <div className="table text-[12px]  flex p-3 w-full border-2 border-gray-200 ">
+        <div className="table text-[12px] md:text-[16px] flex p-3 w-full border-2 border-gray-200 ">
             <div className="row flex ">
                 <div className="col w-1/2">
                     Toss
                 </div>
                 <div className="col w-1/2">
-                    India
+                    {match.toss}
                 </div>
             </div>
         </div>
+
+        </div>
+        : null
+        
+        
+        )}
     </div>
   )
 }

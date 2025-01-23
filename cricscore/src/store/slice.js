@@ -1,4 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit'
+import {useSelector} from 'react-redux'
+import {useEffect, useState} from 'react'
 
 // for match navbar toggle
 const initialMatchState = {
@@ -26,7 +28,6 @@ const initialTeamState = {
     team1 : 'MI',
     team2 : 'CSK',
     inning : 2  ,
-
     winner : null
 }
 
@@ -49,9 +50,49 @@ const initialNavState = {
 }
 
 const navSlice = createSlice({
-    name : 'globalTeam',
+    name : 'globalNav',
     initialState : initialNavState,
     reducers : {},
 })
 
 export const navReducer = navSlice.reducer
+
+
+
+// Creating global NewsPost id container
+
+const initialPostId = {
+    postId : null
+}
+
+const postIdSlice = createSlice({
+    name : 'globalPostId',
+    initialState : initialPostId,
+    reducers : {
+        setPostId : (state, actions) => {
+            state.postId = actions.payload
+        }
+    }
+})
+export const {setPostId} = postIdSlice.actions
+export const postIdReducer = postIdSlice.reducer
+
+
+// Creating global NewsPost id container
+
+const initialMatchId = {
+    matchId : null
+}
+
+const matchIdSlice = createSlice({
+    name : 'globalMatchId',
+    initialState : initialMatchId,
+    reducers : {
+        setId : (state, actions) => {
+            state.matchId = actions.payload
+            console.log(state.matchId);
+        }
+    }
+})
+export const {setId} = matchIdSlice.actions
+export const matchIdReducer = matchIdSlice.reducer

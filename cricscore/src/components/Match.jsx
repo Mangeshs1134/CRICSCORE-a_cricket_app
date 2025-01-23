@@ -11,8 +11,8 @@ const Match = () => {
   return (
     <>
    
-  <div className="match flex justify-between fixed top-12 w-full px-2 pb-0 text-[12px] bg-blue-500 overflow-hidden ">
-    <div className={`matchTitle text-[10px] gap-1 pb-2  w-[78px] h-[25px] flex  justify-center items-center rounded-sm text-white
+  <div className="match flex justify-between fixed top-12 w-[100%] md:w-4/5 px-2 pb-0 text-[12px] md:text-[14px] bg-blue-500 overflow-hidden ">
+    <div className={`matchTitle text-[10px] md:text-[12px] gap-1 pb-2  w-[78px] md:w-[100px] h-[25px] flex  justify-center items-center rounded-sm text-white
     ${menu==='live'? 'border-b-2' : null }`}
     onClick={()=> {dispatch(toggleMenu('live')); navigate('/matchLive')}}
     >

@@ -41,6 +41,7 @@ class NewsSerializer(ModelSerializer):
 class CommentrySerializer(ModelSerializer):
     batter_name = serializers.CharField(source='batter.name', read_only=True)
     bowler_name = serializers.CharField(source='bowler.name', read_only=True)
+    get_defaultCommentry = serializers.CharField(source='self.defaultCommentry', read_only=True)
     class Meta:
         model = Commentry
         fields = '__all__'

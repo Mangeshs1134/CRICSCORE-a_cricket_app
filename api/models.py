@@ -48,12 +48,12 @@ isBowling=[
     ('no','no'),
 ]
 commentryDefaults=[
-    ("four", "That's a great shot. FOUR"),
-    ("four", "This is a HUUUGE SIX "),
-    ("bowled", "He didn't have clue How ball got swing in. Bowled "),
-    ("dot", "Nice Delivey from the Bowler "),
-    ("spin", " That is a top spin from bowler "),
-    ("googly", " This is Googly ")
+    ( "That's a great shot. FOUR","four"),
+    ("This is a HUUUGE SIX ","four" ),
+    ("He didn't have clue How ball got swing in. Bowled ","bowled"),
+    ("Nice Delivey from the Bowler ","dot"),
+    (" That is a top spin from bowler ","spin" ),
+    ( " This is Googly ","googly")
 ]
 
 # Create your models here.
@@ -93,6 +93,8 @@ class Match(models.Model):
     live = models.CharField(choices=live,max_length=50, null=True)
     inning = models.IntegerField(choices=inning)
     status = models.CharField(max_length=50)
+    team1extras = models.IntegerField(default=0)
+    team2extras = models.IntegerField(default=0)
     # Define the batting choices as team1 or team2
     batting = models.ForeignKey(
         Teams, 
@@ -167,7 +169,7 @@ class PlayerPerformance(models.Model):
 class Commentry(models.Model):
     ballNumber = models.IntegerField(default=0)
     defaultCommentry = models.CharField(choices=commentryDefaults,max_length=100, null=True)
-    commentryText = models.CharField(max_length=200, null=True)
+    commentryText = models.CharField(max_length=200, null=True, default='')
     match = models.ForeignKey(Match, on_delete=models.CASCADE, related_name='matchCommentry')
     runs = models.IntegerField(choices=runs, default=0)
     batter = models.ForeignKey(Player, on_delete=models.CASCADE,related_name='batter', null=True)
@@ -177,8 +179,10 @@ class Commentry(models.Model):
         return self.batter.name
     def bowler_name(self):
         return self.bowler.name
-    def get_commentry(self):
-        return self.defaultCommentry or self.get_commentryText_display()
+    def get_defaultCommentry(self):
+        return  self.defaultCommentry
+    def get_commentryText(self):
+        return  self.get_commentryText_display
 
 
    

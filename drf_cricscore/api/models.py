@@ -5,6 +5,14 @@ team = [
     ("PAKISTAN","PAK"),
     ("AUSTRALIA","AUS"),
     ("SRI LANKA","SL"),
+    ('MI',"MI"),
+    ('CSK',"CSK"),
+    ('RCB','RCB')
+]
+live = [
+    ("toBeStarted","toBeStarted"),
+    ('live', 'live'),
+    ('result', 'result'),
 ]
 position =[
     (1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(10,10),(11,11)
@@ -26,9 +34,26 @@ isOut = [
     ('onStrike', 'onStrike'),
     ('nonStrike', 'nonStrike'),
 ]
+runs =[
+    (-1,-1),
+    (0,0),
+    (1,1),
+    (2,2),
+    (3,3),
+    (4,4),
+    (6,6),
+]
 isBowling=[
     ('yes','yes'),
     ('no','no'),
+]
+commentryDefaults=[
+    ( "That's a great shot. FOUR","four"),
+    ("This is a HUUUGE SIX ","six" ),
+    ("He didn't have clue How ball got swing in. Bowled ","bowled"),
+    ("Nice Delivey from the Bowler ","dot"),
+    (" That is a top spin from bowler ","spin" ),
+    ( " This is Googly ","googly")
 ]
 
 # Create your models here.
@@ -51,6 +76,9 @@ class News(models.Model):
     content = models.CharField(max_length=500)
     image = models.ImageField(upload_to='news/')
 
+    def __str__(self):
+        return f'{self.title}'
+
 class Match(models.Model):
     team1 = models.ForeignKey(Teams, on_delete=models.CASCADE, related_name='team1')
     team2 = models.ForeignKey(Teams, on_delete=models.CASCADE, related_name='team2')
@@ -65,8 +93,11 @@ class Match(models.Model):
     venue = models.CharField(max_length=50)
     umpire = models.CharField(max_length=50)
     toss = models.ForeignKey(Teams, on_delete=models.CASCADE)
+    live = models.CharField(choices=live,max_length=50, null=True)
     inning = models.IntegerField(choices=inning)
     status = models.CharField(max_length=50)
+    team1extras = models.IntegerField(default=0)
+    team2extras = models.IntegerField(default=0)
     # Define the batting choices as team1 or team2
     batting = models.ForeignKey(
         Teams, 
@@ -99,11 +130,13 @@ class Player(models.Model):
     role = models.CharField(choices=role, max_length=50)
     team = models.ForeignKey(Teams, on_delete=models.CASCADE, related_name='playersTeam')
     favPosition = models.IntegerField(choices=position, default=1)
+    ranking = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
     def team_name(self):
         return self.team.get_team_display()
+    
     
 
 class PlayerPerformance(models.Model):
@@ -121,10 +154,44 @@ class PlayerPerformance(models.Model):
     isOut = models.CharField(choices=isOut, max_length=50)
     isBowling = models.CharField(choices=isBowling, max_length=50)
 
+
     def get_name(self):
         return self.name.name
+    def __str__(self):
+        return f'{self.runScored}  by {self.get_name}'
+    
+    def get_ranking(self):
+        return self.name.ranking
+    
+    def get_role(self):
+        return self.name.role
+
+    def get_image(self):
+        return self.name.image
 
     def get_team(self):
         return self.name.team if self.name else None
+    
+class Commentry(models.Model):
+    ballNumber = models.IntegerField(default=0)
+    defaultCommentry = models.CharField(choices=commentryDefaults,max_length=100, null=True)
+    commentryText = models.CharField(max_length=200, null=True, default='')
+    match = models.ForeignKey(Match, on_delete=models.CASCADE, related_name='matchCommentry')
+    runs = models.IntegerField(choices=runs, default=0)
+    batter = models.ForeignKey(Player, on_delete=models.CASCADE,related_name='batter', null=True)
+    bowler = models.ForeignKey(Player, on_delete=models.CASCADE,related_name='bowler', null=True)
+
+    def batter_name(self):
+        return self.batter.name
+    def bowler_name(self):
+        return self.bowler.name
+    def get_defaultCommentry(self):
+        return  self.defaultCommentry
+    def get_commentryText(self):
+        return  self.get_commentryText_display
+    
+    def __str__(self):
+        return f'{self.ballNumber} for matchId {self.match}'
+
 
    

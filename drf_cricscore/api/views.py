@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
-from .serializers import NewsSerializer, MatchSerializer, TeamSerializer, PlayerSerializer,PlayerPerformanceSerializer
-from .models import News, Match, Teams, Player, PlayerPerformance
+from .serializers import NewsSerializer, MatchSerializer, TeamSerializer, PlayerSerializer,PlayerPerformanceSerializer, CommentrySerializer
+from .models import News, Match, Teams, Player, PlayerPerformance, Commentry
 
 # Create your views here.
 class MatchList(ModelViewSet):
@@ -23,3 +23,7 @@ class PlayerPerformanceList(ModelViewSet):
 class NewsList(ModelViewSet):
     queryset = News.objects.all()
     serializer_class = NewsSerializer
+
+class CommentryList(ModelViewSet):
+    queryset = Commentry.objects.all()
+    serializer_class = CommentrySerializer

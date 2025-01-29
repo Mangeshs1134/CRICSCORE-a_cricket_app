@@ -19,9 +19,9 @@ const MatchCard = ({list = false}) => {
     
     
     const navigate = useNavigate()
-    const noOfMatches = 3
-    const [matchId, setMatchId ] = useState(1)
     const {allMatch, error} = Match()
+    const noOfMatches = allMatch.length
+    const [matchId, setMatchId ] = useState(1)
 
     if (list) {
         return (

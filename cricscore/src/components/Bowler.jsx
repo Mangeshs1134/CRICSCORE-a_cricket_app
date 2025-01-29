@@ -1,6 +1,11 @@
 import React from 'react'
+import {useSelector} from'react-redux'
+import { onBowling } from '../Hooks/useStrikeBowler'
 
 const Bowler = () => {
+    const {strikeBowler, error} = onBowling()
+    const matchId = useSelector((state)=>state.globalMatchId.matchId)
+
   return (
     <>
     <div className="my-1 flex text-[10px] text-gray-600 px-3 py-0.5 md:py-1   border border-gray-400">
@@ -15,18 +20,24 @@ const Bowler = () => {
             <div className="w-1/5">ER</div>
         </div>
     </div>
-    <div className="my-1 flex text-[12px] text-gray-600 px-3 py-0.5  md:py-1 ">
+    {[...strikeBowler].map((player)=>player.matchPlayed===matchId ? (
+        <div className="my-1 flex text-[12px] text-gray-600 px-3 py-0.5  md:py-1 ">
         <div className=' w-2/5 text-sky-600 font-[900]'>
-            R Ashwin
+            {player.get_name}
         </div>
         <div className="w-3/5 flex justify-between">
-            <div className="w-1/5">100</div>
-            <div className="w-1/5">10</div>
-            <div className="w-1/5">4</div>
-            <div className="w-1/5">6</div>
-            <div className="w-1/5">100</div>
+            <div className="w-1/5">{parseInt(player.ballsBowled/6)}{player.ballsBowled%6? `.${player.ballsBowled%6}`:null}
+            </div>
+            <div className="w-1/5">{player.maidenBowled}</div>
+            <div className="w-1/5">{player.runsGiven}</div>
+            <div className="w-1/5">{player.wicketsTaken}</div>
+            <div className="w-1/5">{player.runsGiven/player.ballsBowled*6}</div>
         </div>
     </div>
+    )
+    : null
+)}
+    
     
     </>
   )

@@ -1,72 +1,17 @@
 import React from 'react'
 import { useState } from 'react'
 import {useSelector} from 'react-redux'
+import {currentMatch} from '../Hooks/useCurrentMatch'
+import {players as teamPlayers} from '../Hooks/usePlayerHook'
 
 const Squads = () => {
+    const {match, error} = currentMatch()
+    const {team1Batters, team2Batters, team1Bowlers, team2Bowlers} = teamPlayers()
     const team = useSelector(state=> state.globalTeam)
-        const [toggle, setToggle] = useState('team1')
-    const players = [
-        {
-            playerPicture : 'Pic',
-            name : 'Mangesh',
-            ranking : 1 ,
-            role : 'Batsman'
-        },
-        {
-            playerPicture : 'Pic',
-            name : 'Mangesh',
-            ranking : 1 ,
-            role : 'Batsman'
-        },
-        {
-            playerPicture : 'Pic',
-            name : 'Mangesh',
-            ranking : 1 ,
-            role : 'Batsman'
-        },
-        {
-            playerPicture : 'Pic',
-            name : 'Mangesh',
-            ranking : 1 ,
-            role : 'Batsman'
-        },
-        {
-            playerPicture : 'Pic',
-            name : 'Mangesh',
-            ranking : 1 ,
-            role : 'Batsman'
-        },
-        {
-            playerPicture : 'Pic',
-            name : 'Mangesh',
-            ranking : 1 ,
-            role : 'Batsman'
-        },
-        {
-            playerPicture : 'Pic',
-            name : 'Mangesh',
-            ranking : 1 ,
-            role : 'Batsman'
-        },
-        {
-            playerPicture : 'Pic',
-            name : 'Mangesh',
-            ranking : 1 ,
-            role : 'Batsman'
-        },
-        {
-            playerPicture : 'Pic',
-            name : 'Mangesh',
-            ranking : 1 ,
-            role : 'Batsman'
-        },
-        {
-            playerPicture : 'Pic',
-            name : 'Mangesh',
-            ranking : 1 , 
-            role : 'Batsman'
-        },
-    ]
+    const [toggle, setToggle] = useState('team1')
+    let players = []
+
+    toggle === "team1" ? players=[...team1Batters] : players=[...team2Batters]
    
     
   return (
@@ -77,7 +22,7 @@ const Squads = () => {
         onClick={()=> toggle==='team1' ? null : setToggle("team1") }
         >
             <div className='mx-2'>
-            {team.team1}
+            {match.team1_name}
             </div>
            
         </div>
@@ -85,7 +30,7 @@ const Squads = () => {
         onClick={()=> toggle==='team2' ? null : setToggle("team2") }
         >
              <div className='mx-2'>
-            {team.team2}
+            {match.team2_name}
             </div>
         </div>
     </div>
@@ -108,16 +53,19 @@ const Squads = () => {
     {players.map((player)=>(
         <div key={player.name} className="players my-1 h-[30px] text-[12px] flex justify-between px-1">
         <div className="picture w-1/5 flex justify-center items-center ">
-            <img className='rounded-2xl w-[30px] h-[30px]' src="https://bsmedia.business-standard.com/_media/bs/img/article/2022-03/15/full/1647365891-7103.jpg" alt="" />
+            <img className='rounded-2xl max-w-[30px] max-h-[30px]' src={player.get_image} alt="" />
         </div>
-        <div className="name w-2/5 justify-start items-center">
-            {player.name}
+        <div className="name w-2/5 justify-center items-center">
+            {player.get_name}
         </div>
         <div className="role w-1/5 flex justify-center items-center">
-            {player.role}
+            {player.get_role==='bat'? <span className=''>🏏</span>  : null}
+            {player.get_role==='ball'? <span>⚾</span>  : null}
+            {player.get_role==='allround'? <span>🏏⚾</span>  : null}
+            {player.get_role==='wicketkeepar'? <span>🧤</span>  : null}
         </div>
         <div className="ranking w-1/5 flex justify-center items-center">
-            {player.ranking}
+            #{(player.get_ranking)}
         </div>
     </div>
     ))}

@@ -7,7 +7,7 @@ let BaseUrl = 'http://127.0.0.1:8000/match/'
 
 const useCurrentMatch=()=>{
     const id = useSelector((state)=>state.globalMatchId.matchId)
-    console.log(id);
+    const reloadKey = useSelector((state)=>state.reload.reloadKey)
     const [match, setMatch] = useState([])
     const [error, setError] = useState(null)
 
@@ -25,7 +25,7 @@ const useCurrentMatch=()=>{
             }
         };
         fetchMatch()
-    },[])
+    },[reloadKey])
     return {match, error}
 }
 export const currentMatch = useCurrentMatch;

@@ -90,9 +90,27 @@ const matchIdSlice = createSlice({
     reducers : {
         setId : (state, actions) => {
             state.matchId = actions.payload
-            console.log(state.matchId);
         }
     }
 })
 export const {setId} = matchIdSlice.actions
 export const matchIdReducer = matchIdSlice.reducer
+
+// Creating For Reloading on click
+
+const initialReload ={
+    reloadKey : 0
+}
+const reloadSlice = createSlice({
+    name : 'reload',
+    initialState : initialReload,
+    reducers:{
+        triggerReload : (state)=>{
+            state.reloadKey += 1; 
+            console.log(state.reloadKey);
+            
+        }
+    }
+})
+export const { triggerReload } = reloadSlice.actions;
+export const reloadReducer = reloadSlice.reducer;

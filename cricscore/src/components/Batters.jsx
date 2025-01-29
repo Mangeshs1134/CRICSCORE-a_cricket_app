@@ -1,9 +1,11 @@
 import React from 'react'
-import { strikerBatter } from '../Hooks/useStrikerBatter'
+import { onStrike } from '../Hooks/useStrikerBatter'
 
 
 const Batters = () => {
-    const {batters, error} = strikerBatter()
+    const {strikerBatter, nonStrikerBatter, error} = onStrike()
+    
+    
   return (
     <>
     <div className="my-1 flex text-[10px] text-gray-600 px-3 py-0.5 md:py-1  border border-gray-400">
@@ -18,30 +20,37 @@ const Batters = () => {
             <div className="w-1/5">SR</div>
         </div>
     </div>
-    <div className="my-1 flex text-[12px] text-gray-600 px-3 py-0.5 md:py-1   ">
+    {[...strikerBatter].map((player)=>(
+        <div className="my-1 flex text-[12px] text-gray-600 px-3 py-0.5 md:py-1   ">
         <div className=' w-2/5 text-sky-600 font-[900]'>
-            Rohit Sharma
+            {player.get_name}
         </div>
         <div className="w-3/5 flex justify-between">
-            <div className="w-1/5">100</div>
-            <div className="w-1/5">10</div>
-            <div className="w-1/5">4</div>
-            <div className="w-1/5">6</div>
-            <div className="w-1/5">100</div>
+            <div className="w-1/5">{player.runScored}</div>
+            <div className="w-1/5">{player.ballsPlayed}</div>
+            <div className="w-1/5">{player.fours}</div>
+            <div className="w-1/5">{player.sixes}</div>
+            <div className="w-1/5">{player.ballsPlayed===0 ? null : parseInt(player.runScored/player.ballsPlayed*100)}</div>
         </div>
     </div>
-    <div className="my-1 flex text-[12px] text-gray-600 px-3 py-0.5  md:py-1 ">
+    ))}
+
+
+    {[...nonStrikerBatter].map((player)=>(
+        <div className="my-1 flex text-[12px] text-gray-600 px-3 py-0.5 md:py-1   ">
         <div className=' w-2/5 text-sky-600 font-[900]'>
-            Rohit Sharma
+            {player.get_name}
         </div>
         <div className="w-3/5 flex justify-between">
-            <div className="w-1/5">100</div>
-            <div className="w-1/5">10</div>
-            <div className="w-1/5">4</div>
-            <div className="w-1/5">6</div>
-            <div className="w-1/5">100</div>
+            <div className="w-1/5">{player.runScored}</div>
+            <div className="w-1/5">{player.ballsPlayed}</div>
+            <div className="w-1/5">{player.fours}</div>
+            <div className="w-1/5">{player.sixes}</div>
+            <div className="w-1/5">{player.ballsPlayed ===0 ? null :  parseInt(player.runScored/player.ballsPlayed*100)}</div>
         </div>
     </div>
+    ))}
+  
     </>
   )
 }

@@ -6,11 +6,10 @@ let BaseUrl = 'http://127.0.0.1:8000/'
 
 
 
-const useStrikerBatter=()=>{
+const useStrikerBowler=()=>{
     const id = useSelector((state)=>state.globalMatchId.matchId)
     const reloadKey = useSelector((state)=>state.reload.reloadKey)
-    const [strikerBatter, setStrikerBatter] = useState([])
-    const [nonStrikerBatter, setNonStrikerBatter] = useState([])
+    const [strikeBowler, setStrikeBowler] = useState([])
     const [error, setError] = useState(null)
 
 
@@ -30,14 +29,13 @@ const useStrikerBatter=()=>{
                     // getting batting team from current match
                     const battingTeam = matchData.get_batting;
                     
-                    const strikeBatter = playerData.filter((player)=>player.get_team===battingTeam && player.isOut === "onStrike")
+                    const bowler = playerData.filter((player)=>player.get_team!==battingTeam && player.isBowling === "yes")
 
-                    const nonStrikeBatter = playerData.filter((player)=>player.get_team===battingTeam && player.isOut === "nonStrike")
-                    
-                    setStrikerBatter(strikeBatter) //update the state with filtered batter
-                    setNonStrikerBatter(nonStrikeBatter) //update the state with filtered batter
                     
                     
+                    setStrikeBowler(bowler) //update the state with filtered batter
+                    // console.log(strikerBatter);
+                   
                     
                 }
                 
@@ -48,6 +46,6 @@ const useStrikerBatter=()=>{
         }
         fetchBatter()
     },[id, reloadKey])
-    return {strikerBatter, nonStrikerBatter, error} 
+    return {strikeBowler, error} 
 }
-export const onStrike = useStrikerBatter
+export const onBowling = useStrikerBowler

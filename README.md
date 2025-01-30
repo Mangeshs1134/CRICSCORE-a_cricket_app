@@ -55,7 +55,7 @@ CricScore/ ├── backend/ │ ├── cricscore/ # Django project settings
 ### Prerequisites:
 - Python 3.8+
 - Node.js 14+
-- npm or yarn
+- npm
 - Django and DRF
 
 

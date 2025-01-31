@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post">
+        <h1>Match Details</h1>
+        {% csrf_token %}
+        {{form.as_p}}
+        <hr>
+        <h1>Player Details</h1>
+        {% comment %} {{formset}} {% endcomment %}
+         {% comment %} {{ formset.management_form }} {% endcomment %}
+        {% comment %} {% for form in formset  %}
+        
+        {{form.as_p}}
+        <hr>
+        {% endfor %}  {% endcomment %}
+
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

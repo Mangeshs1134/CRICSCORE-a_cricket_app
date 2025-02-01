@@ -17,5 +17,6 @@ urlpatterns = [
     path('matchList/', views.matchList, name='matchList' ),
     path('register_match', views.upload_match_data, name='register_match' ),
     path('updateMatch/<int:matchId>', views.updateMatchData, name='updateMatch' ),
+    path('updateMatch/addBowler/<int:matchId>', views.addBowler, name='addBowler' ),
 
 ]

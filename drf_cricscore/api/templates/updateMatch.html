@@ -12,14 +12,17 @@
         {% csrf_token %}
         {{form.as_p}}
         <hr>
+        <h1>Commentry</h1>
+        {{commentryForm.as_p}}
+        <h1>Striker Details</h1>
+        {{strikerForm.as_p}}
+        <h1>Non Striker Details</h1>
+        {{nonStrikerForm.as_p}}
         <h1>Player Details</h1>
-        {% comment %} {{formset}} {% endcomment %}
-         {% comment %} {{ formset.management_form }} {% endcomment %}
-        {% comment %} {% for form in formset  %}
+        {{bowlerForm.as_p}}
         
-        {{form.as_p}}
-        <hr>
-        {% endfor %}  {% endcomment %}
+
+        
 
 
         <button type="submit">Submit</button>

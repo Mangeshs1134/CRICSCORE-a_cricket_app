@@ -158,7 +158,7 @@ class PlayerPerformance(models.Model):
     def get_name(self):
         return self.name.name
     def __str__(self):
-        return f'{self.runScored}  by {self.get_name}'
+        return f' {self.name}'
     
     def get_ranking(self):
         return self.name.ranking

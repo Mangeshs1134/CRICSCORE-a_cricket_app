@@ -10,6 +10,18 @@ class MatchForm(forms.ModelForm):
 class PlayerPerformanceForm(forms.ModelForm):
     
     class Meta:
-        model = Match
+        model = PlayerPerformance
         fields = '__all__'
+
+    
+class CommentaryForm(forms.ModelForm):
+    class Meta:
+        model = Commentry
+        fields = '__all__'
+ 
+class BowlerForm(forms.ModelForm):
+    
+    class Meta:
+        model = PlayerPerformance
+        fields = ['isBowling']
         
